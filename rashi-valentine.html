@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Rashi 💖</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(-45deg,#ffd1dc,#ffe6f0,#fad0c4,#ffb3c6);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.card{
+background:white;
+padding:40px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+button{
+padding:12px 28px;
+font-size:18px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+}
+
+#yes{
+background:#ff4d6d;
+color:white;
+}
+
+#no{
+background:#eee;
+margin-left:20px;
+}
+
+#yes:active{
+transform:scale(1.2);
+}
+
+#ending{
+display:none;
+position:fixed;
+inset:0;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:white;
+font-size:40px;
+}
+
+.heart{
+position:absolute;
+bottom:-20px;
+animation:float 4s linear forwards;
+}
+
+@keyframes float{
+to{
+transform:translateY(-110vh);
+opacity:0;
+}
+}
+
+.burst{
+position:absolute;
+animation:burst 2s forwards;
+}
+
+@keyframes burst{
+to{
+transform:translate(var(--x),var(--y));
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+<h1>Rashi, will you be my Valentine? 💖</h1>
+<button id="yes">Yes 💕</button>
+<button id="no">No</button>
+</div>
+
+<div id="ending">
+<div id="type"></div>
+<div style="font-size:20px">Happy Valentine’s Day 💕</div>
+</div>
+
+<script>
+const no=document.getElementById("no");
+const yes=document.getElementById("yes");
+const ending=document.getElementById("ending");
+const card=document.getElementById("card");
+const type=document.getElementById("type");
+
+// NO runs away
+no.onmouseenter=()=>{
+no.style.position="fixed";
+no.style.left=Math.random()*(window.innerWidth-100)+"px";
+no.style.top=Math.random()*(window.innerHeight-50)+"px";
+};
+
+// YES click
+yes.onclick=()=>{
+card.style.display="none";
+ending.style.display="flex";
+typeText();
+burst();
+};
+
+// typing
+const txt="Rashi ❤️ Akshyit";
+let i=0;
+function typeText(){
+if(i<txt.length){
+type.innerHTML+=txt.charAt(i);
+i++;
+setTimeout(typeText,120);
+}
+}
+
+// heart burst
+function burst(){
+for(let i=0;i<30;i++){
+let h=document.createElement("div");
+h.className="burst";
+h.innerHTML="❤️";
+h.style.left="50%";
+h.style.top="50%";
+h.style.setProperty("--x",(Math.random()*400-200)+"px");
+h.style.setProperty("--y",(Math.random()*400-200)+"px");
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),2000);
+}
+}
+
+// floating hearts
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=14+Math.random()*20+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+},300);
+</script>
+
+</body>
+</html>
